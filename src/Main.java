@@ -3,6 +3,7 @@
  */
 
 import java.sql.*;
+import javax.swing.*;
 
 public class Main {
     // JDBC driver name and database URL
@@ -64,5 +65,11 @@ public class Main {
             }//end finally try
         }//end try
         System.out.println("Goodbye!");
+
+
+        JFrame frame = new JFrame("MainFrom");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 }
