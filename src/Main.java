@@ -69,7 +69,7 @@ public class Main {
 
         JFrame frame = new JFrame("MainFrom");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+//        frame.pack();
         frame.setVisible(true);
     }
 }
