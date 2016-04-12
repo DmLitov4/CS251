@@ -71,7 +71,7 @@ public class Main {
         JFrame frame = new JFrame("MainFrom");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.getContentPane().add(, BorderLayout.CENTER);
+//        frame.getContentPane().add(, BorderLayout.CENTER);
 //        frame.pack();
         frame.setVisible(true);
     }
