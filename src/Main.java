@@ -2,6 +2,7 @@
  * Created by rasiel on 07.04.16.
  */
 
+import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
 
@@ -69,6 +70,8 @@ public class Main {
 
         JFrame frame = new JFrame("MainFrom");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.getContentPane().add(, BorderLayout.CENTER);
 //        frame.pack();
         frame.setVisible(true);
     }
