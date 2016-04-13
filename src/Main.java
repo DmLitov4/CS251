@@ -5,74 +5,153 @@
 import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
+import java.util.List;
+import java.util.Date;
+import java.util.Iterator;
+
+import org.AgentEntity;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+class ManageAgents {
+    private static SessionFactory factory;
+
+    ManageAgents(SessionFactory factory) {
+        this.factory = factory;
+    }
+//    public static void main(String[] args) {
+//        try{
+//            factory = new Configuration().configure().buildSessionFactory();
+//        }catch (Throwable ex) {
+//            System.err.println("Failed to create sessionFactory object." + ex);
+//            throw new ExceptionInInitializerError(ex);
+//        }
+//        ManageEmployee ME = new ManageEmployee();
+//
+//      /* Add few employee records in database */
+//        Integer empID1 = ME.addEmployee("Zara", "Ali", 1000);
+//        Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
+//        Integer empID3 = ME.addEmployee("John", "Paul", 10000);
+//
+//      /* List down all the employees */
+//        ME.listEmployees();
+//
+//      /* Update employee's records */
+//        ME.updateEmployee(empID1, 5000);
+//
+//      /* Delete an employee from the database */
+//        ME.deleteEmployee(empID2);
+//
+//      /* List down new list of the employees */
+//        ME.listEmployees();
+//    }
+//    /* Method to CREATE an employee in the database */
+//    public Integer addEmployee(String fname, String lname, int salary){
+//        Session session = factory.openSession();
+//        Transaction tx = null;
+//        Integer employeeID = null;
+//        try{
+//            tx = session.beginTransaction();
+//            Employee employee = new Employee(fname, lname, salary);
+//            employeeID = (Integer) session.save(employee);
+//            tx.commit();
+//        }catch (HibernateException e) {
+//            if (tx!=null) tx.rollback();
+//            e.printStackTrace();
+//        }finally {
+//            session.close();
+//        }
+//        return employeeID;
+//    }
+    /* Method to  READ all the employees */
+    public void listEmployees( ){
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            List employees = session.createQuery("FROM AgentEntity").list();
+            for (Iterator iterator =
+                 employees.iterator(); iterator.hasNext();){
+                AgentEntity agent = (AgentEntity) iterator.next();
+                System.out.print("ID: " + agent.getIdAg());
+                System.out.print("Name: " + agent.getNameAg());
+                System.out.print("Phone: " + agent.getPhone());
+                System.out.print("Town: " + agent.getTown());
+                System.out.println();
+            }
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+    }
+//    /* Method to UPDATE salary for an employee */
+//    public void updateEmployee(Integer EmployeeID, int salary ){
+//        Session session = factory.openSession();
+//        Transaction tx = null;
+//        try{
+//            tx = session.beginTransaction();
+//            Employee employee =
+//                    (Employee)session.get(Employee.class, EmployeeID);
+//            employee.setSalary( salary );
+//            session.update(employee);
+//            tx.commit();
+//        }catch (HibernateException e) {
+//            if (tx!=null) tx.rollback();
+//            e.printStackTrace();
+//        }finally {
+//            session.close();
+//        }
+//    }
+//    /* Method to DELETE an employee from the records */
+//    public void deleteEmployee(Integer EmployeeID){
+//        Session session = factory.openSession();
+//        Transaction tx = null;
+//        try{
+//            tx = session.beginTransaction();
+//            Employee employee =
+//                    (Employee)session.get(Employee.class, EmployeeID);
+//            session.delete(employee);
+//            tx.commit();
+//        }catch (HibernateException e) {
+//            if (tx!=null) tx.rollback();
+//            e.printStackTrace();
+//        }finally {
+//            session.close();
+//        }
+//    }
+}
+
+
 
 public class Main {
-    // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "org.firebirdsql.jdbc.FBDriver";
-    static final String DB_URL = "jdbc:firebirdsql:class.mmcs.sfedu.ru/3050:/fbdata/shop.fdb ?encoding=UNICODE_FSS";
 
-    //  Database credentials
-    static final String USER = "IT38";
-    static final String PASS = "it38";
+
 
     public static void main(String[] args) {
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            //STEP 2: Register JDBC driver
-            Class.forName(JDBC_DRIVER);
+        SessionFactory factory;
+        try{
+            factory = new Configuration().configure().buildSessionFactory();
+        }catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+        ManageAgents ma = new ManageAgents(factory);
 
-            //STEP 3: Open a connection
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        ma.listEmployees();
 
-            //STEP 4: Execute a query
-            System.out.println("Creating statement...");
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT kol FROM operation";
-            ResultSet rs = stmt.executeQuery(sql);
+        System.out.println("Agents:");
 
-            //STEP 5: Extract data from result set
-            while(rs.next()){
-                //Retrieve by column name
-                int x  = rs.getInt("kol");
-
-                //Display values
-                System.out.print("\nkol: " + x);
-            }
-            //STEP 6: Clean-up environment
-            rs.close();
-            stmt.close();
-            conn.close();
-        }catch(SQLException se){
-            //Handle errors for JDBC
-            se.printStackTrace();
-        }catch(Exception e){
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        }finally{
-            //finally block used to close resources
-            try{
-                if(stmt!=null)
-                    stmt.close();
-            }catch(SQLException se2){
-            }// nothing we can do
-            try{
-                if(conn!=null)
-                    conn.close();
-            }catch(SQLException se){
-                se.printStackTrace();
-            }//end finally try
-        }//end try
-        System.out.println("Goodbye!");
-
-
-        JFrame frame = new JFrame("MainFrom");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+//        JFrame frame = new JFrame("MainFrom");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
 //        frame.getContentPane().add(, BorderLayout.CENTER);
 //        frame.pack();
-        frame.setVisible(true);
+//        frame.setVisible(true);
     }
 }
