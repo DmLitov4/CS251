@@ -3,34 +3,35 @@ package org;
 import javax.persistence.*;
 
 /**
- * Created by rasiel on 13.04.16.
+ * Created by rasiel on 16.04.16.
  */
 @Entity
 @Table(name = "AGENT", schema = "", catalog = "")
 public class AgentEntity {
-    private String idAg;
-    private String nameAg;
+    private int idAgent;
+    private String name;
     private String town;
     private String phone;
+    private Integer idSeller;
 
     @Id
-    @Column(name = "ID_AG")
-    public String getIdAg() {
-        return idAg;
+    @Column(name = "ID_AGENT")
+    public int getIdAgent() {
+        return idAgent;
     }
 
-    public void setIdAg(String idAg) {
-        this.idAg = idAg;
+    public void setIdAgent(int idAgent) {
+        this.idAgent = idAgent;
     }
 
     @Basic
-    @Column(name = "NAME_AG")
-    public String getNameAg() {
-        return nameAg;
+    @Column(name = "NAME")
+    public String getName() {
+        return name;
     }
 
-    public void setNameAg(String nameAg) {
-        this.nameAg = nameAg;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -53,6 +54,16 @@ public class AgentEntity {
         this.phone = phone;
     }
 
+    @Basic
+    @Column(name = "ID_SELLER")
+    public Integer getIdSeller() {
+        return idSeller;
+    }
+
+    public void setIdSeller(Integer idSeller) {
+        this.idSeller = idSeller;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,20 +71,22 @@ public class AgentEntity {
 
         AgentEntity that = (AgentEntity) o;
 
-        if (idAg != null ? !idAg.equals(that.idAg) : that.idAg != null) return false;
-        if (nameAg != null ? !nameAg.equals(that.nameAg) : that.nameAg != null) return false;
+        if (idAgent != that.idAgent) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (town != null ? !town.equals(that.town) : that.town != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
+        if (idSeller != null ? !idSeller.equals(that.idSeller) : that.idSeller != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idAg != null ? idAg.hashCode() : 0;
-        result = 31 * result + (nameAg != null ? nameAg.hashCode() : 0);
+        int result = idAgent;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (town != null ? town.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (idSeller != null ? idSeller.hashCode() : 0);
         return result;
     }
 }

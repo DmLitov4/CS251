@@ -2,11 +2,7 @@
  * Created by rasiel on 07.04.16.
  */
 
-import java.awt.*;
-import java.sql.*;
-import javax.swing.*;
 import java.util.List;
-import java.util.Date;
 import java.util.Iterator;
 
 import org.AgentEntity;
@@ -76,10 +72,10 @@ class ManageAgents {
             for (Iterator iterator =
                  employees.iterator(); iterator.hasNext();){
                 AgentEntity agent = (AgentEntity) iterator.next();
-                System.out.print("ID: " + agent.getIdAg());
-                System.out.print("Name: " + agent.getNameAg());
-                System.out.print("Phone: " + agent.getPhone());
-                System.out.print("Town: " + agent.getTown());
+                System.out.print("ID: " + agent.getIdAgent() + "    ");
+                System.out.print("Name: " + agent.getName() + "    ");
+                System.out.print("Phone: " + agent.getPhone() + "    ");
+                System.out.print("Town: " + agent.getTown() + "    ");
                 System.out.println();
             }
             tx.commit();

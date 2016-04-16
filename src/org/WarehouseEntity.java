@@ -3,33 +3,33 @@ package org;
 import javax.persistence.*;
 
 /**
- * Created by rasiel on 13.04.16.
+ * Created by rasiel on 16.04.16.
  */
 @Entity
 @Table(name = "WAREHOUSE", schema = "", catalog = "")
 public class WarehouseEntity {
-    private String idWh;
-    private String naimen;
+    private int idWarehouse;
+    private String name;
     private String town;
 
     @Id
-    @Column(name = "ID_WH")
-    public String getIdWh() {
-        return idWh;
+    @Column(name = "ID_WAREHOUSE")
+    public int getIdWarehouse() {
+        return idWarehouse;
     }
 
-    public void setIdWh(String idWh) {
-        this.idWh = idWh;
+    public void setIdWarehouse(int idWarehouse) {
+        this.idWarehouse = idWarehouse;
     }
 
     @Basic
-    @Column(name = "NAIMEN")
-    public String getNaimen() {
-        return naimen;
+    @Column(name = "NAME")
+    public String getName() {
+        return name;
     }
 
-    public void setNaimen(String naimen) {
-        this.naimen = naimen;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -49,8 +49,8 @@ public class WarehouseEntity {
 
         WarehouseEntity that = (WarehouseEntity) o;
 
-        if (idWh != null ? !idWh.equals(that.idWh) : that.idWh != null) return false;
-        if (naimen != null ? !naimen.equals(that.naimen) : that.naimen != null) return false;
+        if (idWarehouse != that.idWarehouse) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (town != null ? !town.equals(that.town) : that.town != null) return false;
 
         return true;
@@ -58,8 +58,8 @@ public class WarehouseEntity {
 
     @Override
     public int hashCode() {
-        int result = idWh != null ? idWh.hashCode() : 0;
-        result = 31 * result + (naimen != null ? naimen.hashCode() : 0);
+        int result = idWarehouse;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (town != null ? town.hashCode() : 0);
         return result;
     }
