@@ -19,19 +19,19 @@ public class AgentManager {
         this.factory = factory;
     }
 
-    void add(/* params? */) {
+    public void add(/* params? */) {
 
     }
 
-    void remove(/* params? */) {
+    public void remove(/* params? */) {
 
     }
 
-    void update(/* params? */) {
+    public void update(/* params? */) {
 
     }
 
-    List<AgentEntity> list() {
+    public List<AgentEntity> list() {
         List<AgentEntity> agents = new ArrayList<AgentEntity>();
 
         Session session = factory.openSession();

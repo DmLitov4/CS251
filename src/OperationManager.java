@@ -19,7 +19,7 @@ public class OperationManager {
 
     }
 
-    List<OperationEntity> list() {
+    public List<OperationEntity> list() {
 
         return null;
     }

@@ -15,19 +15,19 @@ public class ProductManager {
     }
 
 
-    void add(/* params? */) {
+    public void add(/* params? */) {
 
     }
 
-    void remove(/* params? */) {
+    public void remove(/* params? */) {
 
     }
 
-    void update(/* params? */) {
+    public void update(/* params? */) {
 
     }
 
-    List<ProductEntity> list() {
+    public List<ProductEntity> list() {
 
         return null;
     }

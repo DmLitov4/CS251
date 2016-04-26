@@ -16,19 +16,19 @@ public class WarehouseManager {
     }
 
 
-    void add(/* params? */) {
+    public void add(/* params? */) {
 
     }
 
-    void remove(/* params? */) {
+    public void remove(/* params? */) {
 
     }
 
-    void update(/* params? */) {
+    public void update(/* params? */) {
 
     }
 
-    List<WarehouseEntity> list() {
+    public List<WarehouseEntity> list() {
 
         return null;
     }
