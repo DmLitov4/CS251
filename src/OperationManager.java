@@ -1,4 +1,5 @@
 import org.AgentEntity;
+import org.OperationEntity;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -18,9 +19,8 @@ public class OperationManager {
 
     }
 
+    List<OperationEntity> list() {
 
-//    List<AgentEntity> list() {
-//
-//        return null;
-//    }
+        return null;
+    }
 }
