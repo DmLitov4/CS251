@@ -1,7 +1,10 @@
-import org.AgentEntity;
 import org.OperationEntity;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +23,21 @@ public class OperationManager {
     }
 
     public List<OperationEntity> list() {
+        List<OperationEntity> entities = new ArrayList<OperationEntity>();
 
-        return null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            entities = session.createQuery("FROM OperationEntity").list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return entities;
     }
 }

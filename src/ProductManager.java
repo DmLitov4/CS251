@@ -1,6 +1,10 @@
 import org.ProductEntity;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +32,21 @@ public class ProductManager {
     }
 
     public List<ProductEntity> list() {
+        List<ProductEntity> entities = new ArrayList<ProductEntity>();
 
-        return null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            entities = session.createQuery("FROM ProductEntity").list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return entities;
     }
 }

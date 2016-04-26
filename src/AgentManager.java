@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,13 +31,13 @@ public class AgentManager {
     }
 
     public List<AgentEntity> list() {
-        List<AgentEntity> agents = new ArrayList<AgentEntity>();
+        List<AgentEntity> entities = new ArrayList<AgentEntity>();
 
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            agents = session.createQuery("FROM AgentEntity").list();
+            entities = session.createQuery("FROM AgentEntity").list();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -47,6 +46,6 @@ public class AgentManager {
             session.close();
         }
 
-        return agents;
+        return entities;
     }
 }

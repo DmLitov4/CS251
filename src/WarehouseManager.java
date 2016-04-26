@@ -1,7 +1,10 @@
-import org.AgentEntity;
 import org.WarehouseEntity;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +32,21 @@ public class WarehouseManager {
     }
 
     public List<WarehouseEntity> list() {
+        List<WarehouseEntity> entities = new ArrayList<WarehouseEntity>();
 
-        return null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            entities = session.createQuery("FROM WarehouseEntity").list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return entities;
     }
 }
