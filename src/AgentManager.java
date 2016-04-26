@@ -1,51 +1,18 @@
 import org.AgentEntity;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by rasiel on 26.04.16.
  */
-public class AgentManager {
-
-    private static SessionFactory factory;
+public class AgentManager extends EntityManager<AgentEntity> {
 
     AgentManager(SessionFactory factory) {
-        this.factory = factory;
-    }
-
-    public void add(/* params? */) {
-
-    }
-
-    public void remove(/* params? */) {
-
-    }
-
-    public void update(/* params? */) {
-
+        super(factory);
     }
 
     public List<AgentEntity> list() {
-        List<AgentEntity> entities = new ArrayList<AgentEntity>();
-
-        Session session = factory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            entities = session.createQuery("FROM AgentEntity").list();
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return entities;
+        return list(AgentEntity.class);
     }
 }
