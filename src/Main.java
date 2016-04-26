@@ -12,12 +12,12 @@ import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-class ManageAgents {
-    private static SessionFactory factory;
-
-    ManageAgents(SessionFactory factory) {
-        this.factory = factory;
-    }
+//class ManageAgents {
+//    private static SessionFactory factory;
+//
+//    ManageAgents(SessionFactory factory) {
+//        this.factory = factory;
+//    }
 //    public static void main(String[] args) {
 //        try{
 //            factory = new Configuration().configure().buildSessionFactory();
@@ -44,8 +44,7 @@ class ManageAgents {
 //      /* List down new list of the employees */
 //        ME.listEmployees();
 //    }
-//    /* Method to CREATE an employee in the database */
-//    public Integer addEmployee(String fname, String lname, int salary){
+//    public Integer addEmployee(String fname, String lname, int salary) {
 //        Session session = factory.openSession();
 //        Transaction tx = null;
 //        Integer employeeID = null;
@@ -62,31 +61,29 @@ class ManageAgents {
 //        }
 //        return employeeID;
 //    }
-    /* Method to  READ all the employees */
-    public void listEmployees( ){
-        Session session = factory.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            List employees = session.createQuery("FROM AgentEntity").list();
-            for (Iterator iterator =
-                 employees.iterator(); iterator.hasNext();){
-                AgentEntity agent = (AgentEntity) iterator.next();
-                System.out.print("ID: " + agent.getIdAgent() + "    ");
-                System.out.print("Name: " + agent.getName() + "    ");
-                System.out.print("Phone: " + agent.getPhone() + "    ");
-                System.out.print("Town: " + agent.getTown() + "    ");
-                System.out.println();
-            }
-            tx.commit();
-        }catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
-    }
-//    /* Method to UPDATE salary for an employee */
+//    public void listEmployees() {
+//        Session session = factory.openSession();
+//        Transaction tx = null;
+//        try {
+//            tx = session.beginTransaction();
+//            List employees = session.createQuery("FROM AgentEntity").list();
+//            for (Iterator iterator =
+//                 employees.iterator(); iterator.hasNext();){
+//                AgentEntity agent = (AgentEntity) iterator.next();
+//                System.out.print("ID: " + agent.getIdAgent() + "    ");
+//                System.out.print("Name: " + agent.getName() + "    ");
+//                System.out.print("Phone: " + agent.getPhone() + "    ");
+//                System.out.print("Town: " + agent.getTown() + "    ");
+//                System.out.println();
+//            }
+//            tx.commit();
+//        } catch (HibernateException e) {
+//            if (tx != null) tx.rollback();
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
+//        }
+//    }
 //    public void updateEmployee(Integer EmployeeID, int salary ){
 //        Session session = factory.openSession();
 //        Transaction tx = null;
@@ -104,7 +101,6 @@ class ManageAgents {
 //            session.close();
 //        }
 //    }
-//    /* Method to DELETE an employee from the records */
 //    public void deleteEmployee(Integer EmployeeID){
 //        Session session = factory.openSession();
 //        Transaction tx = null;
@@ -121,27 +117,25 @@ class ManageAgents {
 //            session.close();
 //        }
 //    }
-}
+//}
 
 
 
 public class Main {
 
-
-
     public static void main(String[] args) {
         SessionFactory factory;
         try{
             factory = new Configuration().configure().buildSessionFactory();
-        }catch (Throwable ex) {
+        } catch (Throwable ex) {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-        ManageAgents ma = new ManageAgents(factory);
+//        ManageAgents ma = new ManageAgents(factory);
 
-        ma.listEmployees();
+//        ma.listEmployees();
 
-        System.out.println("Agents:");
+//        System.out.println("Agents:");
 
 //        JFrame frame = new JFrame("MainFrom");
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
