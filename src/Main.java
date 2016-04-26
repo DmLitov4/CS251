@@ -11,39 +11,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
-//class ManageAgents {
-//    private static SessionFactory factory;
-//
-//    ManageAgents(SessionFactory factory) {
-//        this.factory = factory;
-//    }
-//    public static void main(String[] args) {
-//        try{
-//            factory = new Configuration().configure().buildSessionFactory();
-//        }catch (Throwable ex) {
-//            System.err.println("Failed to create sessionFactory object." + ex);
-//            throw new ExceptionInInitializerError(ex);
-//        }
-//        ManageEmployee ME = new ManageEmployee();
-//
-//      /* Add few employee records in database */
-//        Integer empID1 = ME.addEmployee("Zara", "Ali", 1000);
-//        Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
-//        Integer empID3 = ME.addEmployee("John", "Paul", 10000);
-//
-//      /* List down all the employees */
-//        ME.listEmployees();
-//
-//      /* Update employee's records */
-//        ME.updateEmployee(empID1, 5000);
-//
-//      /* Delete an employee from the database */
-//        ME.deleteEmployee(empID2);
-//
-//      /* List down new list of the employees */
-//        ME.listEmployees();
-//    }
 //    public Integer addEmployee(String fname, String lname, int salary) {
 //        Session session = factory.openSession();
 //        Transaction tx = null;
@@ -117,22 +87,31 @@ import org.hibernate.cfg.Configuration;
 //            session.close();
 //        }
 //    }
-//}
 
 
 
 public class Main {
+    private static SessionFactory sessionFactory;
+    private static ServiceRegistry serviceRegistry;
+
+    private static SessionFactory createSessionFactory() {
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        serviceRegistry = new ServiceRegistryBuilder().applySettings(
+                configuration.getProperties()). buildServiceRegistry();
+        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        return sessionFactory;
+    }
 
     public static void main(String[] args) {
-        SessionFactory factory;
-        try{
-            factory = new Configuration().configure().buildSessionFactory();
+        try {
+            createSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
 
-        AgentManager am = new AgentManager(factory);
+        AgentManager am = new AgentManager(sessionFactory);
 
         List<AgentEntity> agents = am.list();
 
