@@ -16,17 +16,51 @@ public class EntityManager<EntityType> {
         this.factory = factory;
     }
 
-
-    public void add(EntityType entity) {
-
+    public Integer add(EntityType entity) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        Integer entityID = null;
+        try {
+            tx = session.beginTransaction();
+            entityID = (Integer) session.save(entity);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return entityID;
     }
 
     public void remove(EntityType entity) {
-
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.delete(entity);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
-    public void update(EntityType oldEntity, EntityType newEntity) {
-
+    public void update(EntityType entity) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.update(entity);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
     protected List<EntityType> list(Class<EntityType> clazz) {
