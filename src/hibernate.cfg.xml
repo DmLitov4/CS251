@@ -9,6 +9,9 @@
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
 
+        <property name="connection.username">IT39</property>
+        <property name="connection.password">it39</property>
+
         <property name="hibernate.dialect">
             org.hibernate.dialect.FirebirdDialect
         </property>

@@ -131,8 +131,19 @@ public class Main {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-//        ManageAgents ma = new ManageAgents(factory);
 
+        AgentManager am = new AgentManager(factory);
+
+        List<AgentEntity> agents = am.list();
+
+        for (Iterator iterator = agents.iterator(); iterator.hasNext();) {
+                AgentEntity agent = (AgentEntity) iterator.next();
+                System.out.print("ID: " + agent.getIdAgent() + "    ");
+                System.out.print("Name: " + agent.getName() + "    ");
+                System.out.print("Phone: " + agent.getPhone() + "    ");
+                System.out.print("Town: " + agent.getTown() + "    ");
+                System.out.println();
+        }
 //        ma.listEmployees();
 
 //        System.out.println("Agents:");

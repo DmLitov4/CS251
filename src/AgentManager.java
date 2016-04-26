@@ -1,6 +1,11 @@
 import org.AgentEntity;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,7 +32,21 @@ public class AgentManager {
     }
 
     List<AgentEntity> list() {
+        List<AgentEntity> agents = new ArrayList<AgentEntity>();
 
-        return null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            agents = session.createQuery("FROM AgentEntity").list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return agents;
     }
 }
