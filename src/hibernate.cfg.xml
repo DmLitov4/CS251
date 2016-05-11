@@ -8,7 +8,7 @@
         <!--<property name="connection.driver_class"/>-->
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
-
+        
         <property name="connection.username">IT39</property>
         <property name="connection.password">it39</property>
 
@@ -18,12 +18,12 @@
         <property name="hibernate.connection.driver_class">org.firebirdsql.jdbc.FBDriver</property>
 
         <!-- Assume test is the database name -->
-        <property name="hibernate.connection.url">jdbc:firebirdsql:class.mmcs.sfedu.ru/3050:/fbdata/39av/Martindale.fdb
-            ?encoding=UNICODE_FSS</property>
+        <property name="hibernate.connection.url">jdbc:firebirdsql:class.mmcs.sfedu.ru/3050:/fbdata/39av/Martindale.fdb</property>
         <mapping class="org.AgentEntity"/>
         <mapping class="org.WarehouseEntity"/>
         <mapping class="org.OperationEntity"/>
         <mapping class="org.ProductEntity"/>
+        <mapping class="org.SellerEntity"/>
 
         <!-- List of XML mapping files -->
         <!--<mapping resource="Employee.hbm.xml"/>-->
